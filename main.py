@@ -18,23 +18,24 @@ def research_waiver(intro):
 
         left, middle, right = st.columns(3)
 
+        waiver_status = 0
         if left.button("Yes, I Agree", use_container_width=True):
-            st.session_state.waiver_status = 1
-            st.session_state.intro_dismissed = True
-            enter_student_waiver(st.session_state.student_id, st.session_state.waiver_status)
-            st.rerun()
+            waiver_status = 1
+            
 
-        if middle.button("No, I Do Not Agree", use_container_width=True):
-            st.session_state.waiver_status = 2
-            st.session_state.intro_dismissed = True
-            enter_student_waiver(st.session_state.student_id, st.session_state.waiver_status)
-            st.rerun()
+        elif middle.button("No, I Do Not Agree", use_container_width=True):
+            waiver_status = 2
+           
 
-        if right.button("No, I Am Not Eligible", use_container_width=True):
-            st.session_state.waiver_status = 3
+        elif right.button("No, I Am Not Eligible", use_container_width=True):
+            waiver_status = 3
+
+        if waiver_status != 0:  # Only update state if a button was clicked
+            st.session_state.waiver_status = waiver_status
             st.session_state.intro_dismissed = True
-            enter_student_waiver(st.session_state.student_id, st.session_state.waiver_status)
+            enter_student_waiver(st.session_state.student_id, waiver_status)
             st.rerun()
+           
            
 
     else:
