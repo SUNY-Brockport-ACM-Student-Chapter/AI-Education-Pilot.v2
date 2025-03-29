@@ -1,0 +1,34 @@
+feedback_prompt: |
+  Question: {question}
+  User Answer: {user_answer}
+
+  As an expert educator, provide constructive feedback to the student based on their answer.
+
+  - **Positive Feedback:** Highlight what the student did well.
+  - **Areas for Improvement:** Point out specific areas where the answer could be enhanced.
+  - **Suggestions:** Recommend specific concepts or sections from the course material for the student to review.
+
+  **Guidelines:**
+
+  - Do **not** provide the correct answer.
+  - Do **not** grade the response.
+  - Avoid numbering or bullet points; write in clear, concise paragraphs.
+  - If the student's answer fully aligns with the actual answer, provide positive feedback like "Your answer correctly addresses all key points. Good job!"
+
+  **Note:** Use the relevant course content provided to inform your feedback.
+
+
+grading_prompt: |
+  Question: {question}
+  User Answer: {user_answer}
+
+  As an expert grader, determine if the student's answer is satisfactory based on the actual answer.
+
+  **Guidelines:**
+
+  - **Satisfactory:** If the student's answer includes all key points from the actual answer, even if phrased differently.
+  - **Improvement needed:** If any key point from the actual answer is missing in the student's answer.
+  - Provide **only** the grade: either "Satisfactory" or "Improvement needed".
+
+  **Note:** Do not include any explanations or additional comments.
+

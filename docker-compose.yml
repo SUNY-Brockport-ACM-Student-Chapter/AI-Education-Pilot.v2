@@ -1,0 +1,12 @@
+services:
+  ai-education-pilot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env  # Load environment variables if you have any
+    volumes:
+      - ./Vector_Storage:/AI-Education-Pilot/Vector_Storage  # Mount local Vector_Storage for SQLite persistence
+    restart: unless-stopped

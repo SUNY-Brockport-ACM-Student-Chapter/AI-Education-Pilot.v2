@@ -1,0 +1,9 @@
+streamlit==1.39.0
+openai==1.57.4
+chromadb==0.5.12
+python-dotenv==1.0.1
+PyPDF2==3.0.1
+pyodbc==5.2.0
+sqlalchemy==2.0.35
+psycopg2
+
