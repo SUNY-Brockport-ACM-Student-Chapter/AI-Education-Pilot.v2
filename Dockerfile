@@ -37,7 +37,6 @@ COPY .postgresql/us-east-2-bundle.pem /root/.postgresql/us-east-2-bundle.pem
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose port 
-EXPOSE 8501
+EXPOSE 8080
 
-# Define the command to run the app using Streamlit
-CMD ["streamlit", "run", "app.py"]
+CMD ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0"]
