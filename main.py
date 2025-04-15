@@ -322,7 +322,7 @@ def main(collection, questions_fp, ai_client):
     # Handle different attempts
     if st.session_state.current_attempt == 1 and waiver_status == 1:
         st.write("Current attempt: 1")
-        st.markdown("<p class='instruction'>Be sure to save your answer before moving to the next question, or you will lose your progress. Answers will only be saved for this current active session, and they will only be submitted after you have clicked the 'Submit Assessment' button.</p>", unsafe_allow_html=True)
+        st.markdown("<p class='instruction'>Be sure to save your answer before moving to the next question, answers will not be automatically saved. Only saved answers will be submitted after you have clicked the 'Submit Assessment' button.</p>", unsafe_allow_html=True)
         first_attempt_flow(collection, questions, answers, ai_client)
     elif st.session_state.current_attempt == 2:
         if "submitted" in st.session_state and st.session_state.submitted:
