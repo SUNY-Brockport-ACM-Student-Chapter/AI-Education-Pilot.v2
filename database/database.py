@@ -62,12 +62,6 @@ def insert_student_answer(student_id, question_id, answer, attempt):
     finally:
         session.close()
 
-def get_student_answers(student_id):
-    session = Session()
-    answers = session.query(StudentAnswer).filter_by(student_id=student_id).all()
-    session.close()
-    return answers
-
 
 def insert_ai_feedback(student_id, feedback, question_id):
     session = Session()
