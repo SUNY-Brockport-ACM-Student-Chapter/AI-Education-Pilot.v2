@@ -1,8 +1,8 @@
 import streamlit as st
-from database.database import (get_ai_feedback, get_student_answers,
+from database.database import (get_ai_feedback,
                                insert_ai_feedback, insert_student_answer, 
                                get_current_attempt, get_or_create_student, 
-                               update_student_attempt, enter_student_waiver)
+                               update_student_attempt, enter_student_waiver, retrieve_student_answers)
 from utils import (get_feedback, get_or_create_chroma_collection,
                    get_relevant_content, load_questions_and_answers, group_question)
 import time
@@ -138,26 +138,30 @@ def first_attempt_flow(collection, questions, answers, ai_client):
     else:
         # Display all questions, answers, and generate feedback
         st.markdown("<h2 style='color: #215732;'>Submission Evaluation</h2>", unsafe_allow_html=True)
-
+    
+        user_answers = retrieve_student_answers(st.session_state.student_id)
+    
+        
         for group_id, group_questions in grouped_questions.items():
             for q_id, question in group_questions:
                 st.markdown(f"<p style='font-size: 20px; font-weight: bold; color: #00533E;'>Question {q_id}</p>", unsafe_allow_html=True)
                 st.write(question)
                 st.markdown("<p style='font-size: 18px; font-weight: bold; color: #00533E;'>Your Answer:</p>", unsafe_allow_html=True)
-                st.write(st.session_state.user_answers[q_id])
+                answer_text = user_answers.get(q_id, "")
+                st.write(answer_text)
 
-                if st.session_state.user_answers[q_id].strip():
+                if answer_text.strip():
                     if not st.session_state.feedbacks[q_id]:
                         with st.spinner("Generating AI feedback..."):
                             relevant_content = get_relevant_content(
                                 collection,
-                                st.session_state.user_answers[q_id],
+                                answer_text,
                                 answers[q_id],
                                 question,
                             )
                             feedback = get_feedback(
                                 ai_client,
-                                st.session_state.user_answers[q_id],
+                                answer_text,
                                 question,
                                 relevant_content,
                                 answers[q_id],

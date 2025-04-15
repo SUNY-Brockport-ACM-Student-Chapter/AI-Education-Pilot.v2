@@ -156,4 +156,14 @@ def enter_student_waiver(student_id, waiver_status):
     finally:
         session.close()
 
+def retrieve_student_answers(student_id):
+    session = Session()
+
+    try:
+        student = session.query(Student).filter_by(id=student_id).first()
+        if student:
+            results = (session.query(StudentAnswer.question_id, StudentAnswer.answer).filter_by(student_id=student_id).all())
+            return {qid: text for qid, text in results}
+    finally:
+        session.close()
 
